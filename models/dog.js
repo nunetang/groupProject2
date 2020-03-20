@@ -34,11 +34,13 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         gender: {
-            type: DataTypes.STRING
+            type: DataTypes.BOOLEAN
         },
         color: {
-            type: DataTypes.STRING,
-            longFur: DataTypes.BOOLEAN
+            type: DataTypes.STRING
+        },
+        longFur: {
+            type: DataTypes.BOOLEAN
         },
         discription: {
             type: DataTypes.TEXT,
@@ -51,6 +53,20 @@ module.exports = function (sequelize, DataTypes) {
                 isString: true,
                 len: [1, 250],
                 notEmpty: true
+            }
+        },
+        hyper: {
+            type: DataTypes.INTEGER,
+            notEmpty: true,
+            validate: {
+                isNumeric: true
+            }
+        },
+        patient: {
+            type: DataTypes.INTEGER,
+            notEmpty: true,
+            validate: {
+                isNumeric: true
             }
         }
     });
