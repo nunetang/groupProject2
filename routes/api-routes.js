@@ -50,4 +50,47 @@ module.exports = function(app) {
       });
     }
   });
+  app.post("/api/user", function(res, req) {
+    db.User.create({
+      name: req.body.name,
+      address: req.body.address
+    }).then(function(result) {
+      res.json(result);
+    });
+  });
+  app.get("/api/user", function(res) {
+    db.User.findAll({}).then(function(result) {
+      res.json(result);
+    });
+  });
+  app.delete("/api/user/:id", function(res) {
+    db.User.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(result) {
+      res.json(result);
+    });
+  });
+  app.get("/api/user/:id", function(res) {
+    db.User.findAll({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(result) {
+      res.json(result);
+    });
+  });
+  app.post("/api/dog", function(res, req) {
+    db.Dog.create({
+      name: req.body.name,
+      age: req.body.age,
+      gender: req.body.gender,
+      color: req.body.color,
+      longFur: req.body.longFur,
+      discription: req.body.discription,
+      hyper: req.body.hyper,
+      patient: req.body.patient
+    });
+  });
 };
