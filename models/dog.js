@@ -68,7 +68,7 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true
       }
     },
-    //Dogs with similar energy levels should socialize together  
+    //Dogs with similar energy levels should socialize together
     energetic: {
       type: DataTypes.INTEGER,
       notEmpty: true,
