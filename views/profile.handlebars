@@ -1,0 +1,213 @@
+<div class="section">
+	<div class="container">
+		<div class="content">
+			<h1 class="title profile-title">{{ title }}</h1>
+		</div>
+
+
+		<!-- start of owner section -->
+		<div class="content">
+			<div class="card">
+				<div class="card-content">
+					<h2 class="subtitle">Your Info</h2>
+
+
+					<div class="columns">
+						<!-- pic column -->
+						<div class="column is-narrow center-column">
+							<figure class="image is-128x128">
+								<img id="profile-image" src="https://bulma.io/images/placeholders/128x128.png">
+							</figure>
+
+
+							<button class="button upload-button" data-upload-target-type="user">Update</button>
+						</div>
+
+
+						<!-- name column -->
+						<div class="column">
+							<form>
+								<div class="field is-horizontal">
+									<div class="field-body">
+										<div class="field">
+											<div class="control" id="nameControl"></div>
+										</div>
+										<div class="field">
+											<div class="control">
+												<button class="button" id="nameBtn">
+													Update Public Name
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="control">
+									<div class="dropdown">
+										<div class="dropdown-trigger">
+											<button class="button" aria-haspopup="true" aria-controls="dropdown-menu2">
+												<span>Your Events</span>
+												<span class="icon is-small">
+													<i class="fas fa-angle-down" aria-hidden="true"></i>
+												</span>
+											</button>
+										</div>
+										<div class="dropdown-menu" id="dropdown-menu2" role="menu">
+											<div class="dropdown-content" id="userEventsDropdown">
+												{{!-- dropdown goes here --}}
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div> {{!-- end of  column--}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="card profile-dog-card">
+			<div class="card-content">
+				<div class="content dog-title-level">
+					<h2 class="subtitle dog-title-item" id="dogSubtitle">Your Dog(s)</h2>
+					<button class="button dog-title-item" id="addDogBtn">Add a dog</button>
+				</div>
+				<div class="content" id="dogContent">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- new dog modal -->
+<div id="newDogModal" class="modal">
+	<div class="modal-background" id="dogAddModalBackground"></div>
+	<div class="modal-content">
+		<div class="box">
+			<div class="field">
+				<label class="label">Dog's Name</label>
+				<div class="control">
+					<input class="input" type="text" id="dogName" required />
+				</div>
+			</div>
+			<div class="field">
+				<label class="label">Dog's Gender</label>
+				<div class="control">
+					<select class="select" id="dogGender" required>
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				<label class="label">Dog's Age</label>
+				<input class="input" type="number" id="dogAge" required />
+			</div>
+			<div class="field">
+				<label class="label">Dog's Color</label>
+				<input class="input" type="text" id="dogColor" required />
+			</div>
+			<div class="field">
+				<label class="label">Dog's Fur</label>
+				<input class="input" type="text" id="dogFur" required />
+			</div>
+			<div class="field">
+				<label class="label">Dog's Weight (in pounds)</label>
+				<input class="input" type="number" id="dogWeight" required />
+			</div>
+			<div class="field">
+				<label class="label">Dog's Bio</label>
+				<input class="input" type="text" placeholder="Tell us about your dog!" id="dogBio" />
+			</div>
+			<div class="field">
+				<label class="label">Dog's Type</label>
+				<input class="input" type="text" placeholder="Tell us about your dog!" id="dogBio" />
+			</div>
+			<div class="field">
+				<label class="label">How energetic is your dog?</label>
+				<div class="control">
+					<select class="select" id="dogEnergy" required>
+						<option value="1">1 (Not at all)</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6 (Very energetic)</option>
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				<label class="label">How patient is your dog?</label>
+				<div class="control">
+					<select class="select" id="dogPatience" required>
+						<option value="1">1 (Not at all)</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6 (Very patient)</option>
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				<label class="label">How dominant does your dog tend to be with other dogs?</label>
+				<div class="control">
+					<select class="select" id="dogDominance" required>
+						<option value="1">1 (Not at all)</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6 (Very dominant)</option>
+					</select>
+				</div>
+			</div>
+			<button class="button" id="submitDogBtn">Submit</button>
+		</div>
+	</div>
+	<button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+<!-- profile image modal -->
+<div class="modal" id="profile-image-modal">
+	<div class="modal-background" id="profileImageModalBackground"></div>
+	<div class="modal-content">
+		<div class="modal-card">
+			<section class="modal-card-body">
+				<form id="picture-upload">
+					<div class="field">
+						<div class="file has-name is-fullwidth">
+							<label class="file-label">
+								<input id="pick-file" class="file-input" type="file" name="file" accept="image/*">
+								<span class="file-cta">
+									<span class="file-icon"><i class="fas fa-upload"></i></span>
+									<span class="file-label">Choose a file…</span>
+								</span>
+								<span id="pick-file-name" class="file-name"></span>
+							</label>
+						</div>
+
+
+						<p id="upload-feedback" class="help is-danger">The file upload failed.</p>
+					</div>
+
+
+					<progress id="upload-progress" class="progress is-primary"></progress>
+
+
+					<div class="field">
+						<div class="control">
+							<button id="picture-upload" class="button is-primary">Upload</button>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+	</div>
+	<button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+<script src="/js/profile.js"></script
