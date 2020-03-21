@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
           msg: "Required"
         },
         is: {
-          args: ["^[a-z]+$", 'i'],
+          args: ["^[a-z]+$", "i"],
           msg: "Only letters allowed"
         },
         len: {
@@ -46,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isIn: [['male', 'female']]
+        isIn: [["male", "female"]]
       }
     },
     color: {
