@@ -2,3 +2,31 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+  padding-left: 50px;
+
+}
+.right {
+  right: 0;
+
+}
+
+.imgcenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
