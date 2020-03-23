@@ -30,3 +30,298 @@ form.login {
   margin-right: auto;
   width: 50%;
 }
+
+html {
+  background-color: yellowgreen;
+  background-image: url("background.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.navbar-item img {
+  max-height: 5rem;
+}
+
+.navbar {
+  background-color: transparent;
+}
+
+.navButton {
+  margin: 0.1rem;
+  color: orange !important;
+
+}
+
+.title, .subtitle {
+  color: white !important;
+  text-shadow: 0 0 1rem black;
+}
+
+.card {
+  background-color: rgba(255, 176, 93, 0.681) !important;
+  border: 1rem solid transparent;
+  border-radius: 3rem;
+}
+
+
+/* list of elements for cursor: pointer */
+  .dropdown-item,
+  .dropdown-item p,
+  .attendee-list li  {
+    cursor: pointer;
+  }
+/* ^^^^^ list of elements for cursor: pointer */
+
+#nameInput::placeholder {
+  color: red;
+  opacity: 1; /* Firefox */
+}
+
+
+.list-group-item {
+  line-height: 2.5;
+}
+
+/* Calendar Page */
+  body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: "Carrois Gothic", sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    background-color: rgba(255, 220, 183, 0.831);
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 2em;
+  }
+
+.fc-content {
+  padding: .5em;
+}
+
+.fc-day-number{
+  color: blue;
+}
+
+/* ***************************** */
+/* ******** day page ********** */
+
+.day-title {
+  color: #0f0f0f;
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+.park-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+.time-link {
+  background-color: #efefef;
+  border-radius: 2em;
+  color: #4a4a4a;
+  display: inline-block;
+  padding: .5em;
+  text-align: center;
+  width: 15em;
+}
+
+.time-link:focus,
+.time-link:hover {
+  background-color: #cfcfcf;
+}
+
+.activeEvent {
+  background-color: #ffff00;
+}
+
+.activeEvent:focus,
+.activeEvent:hover {
+  background-color: #d3d032;
+}
+
+.time-list {
+  list-style-type: none !important;
+  margin-left: 0 !important;
+  margin-bottom: 2em;
+}
+
+.time-name {
+  font-weight: bold;
+}
+
+.userEvent {
+  color: #ff0000;
+}
+
+#park-list {
+  list-style-type: none;
+}
+
+.card-content {
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+
+/* ***************************** */
+/* ********event page ********** */
+
+  #attendeesBox{
+    box-sizing: border-box;
+    background-color: rgba(255, 203, 107, 0.509);
+    border: 5px solid transparent;
+    border-radius: 1rem;
+    padding: 1em;
+    height: 300px;
+    width: 100%;
+    overflow: auto;
+  }
+
+  #attendeesBox h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  #attendeesBox h2::after{
+    display:block;
+    content:"";
+    border: orange solid 1px;
+    width: 80%;
+    margin: 1rem auto;
+  }
+
+  .attendee {
+    color: #0000df;
+  }
+
+  .dropdown-item p:hover,
+  .attendee:focus,
+  .attendee:hover {
+    color: #7fafdf;
+  }
+
+ .display-name {
+    color: #ffffff;
+  }
+
+  .display-name:focus,
+  .display-name:hover {
+    color: #00009f;
+  }
+
+/* ********event page modal***** */ 
+  .dog-modal-content{
+    padding-bottom: 20px;
+  }
+  .dog-modal-content h2{
+    font-size: 130%;
+  }
+  h2 + p{
+    padding-top: 5px;
+    /* color: red; */
+  }
+  .float-left {
+    float: left;
+  }
+
+  .clearfix:after{
+    content: "";
+    clear: both;
+    display: table;
+  }
+/* ********event page modal***** */
+/* *****************************
+
+/* Profile Page */
+
+.center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+.dog-meter {
+  margin-left: 1em;
+  white-space: nowrap;
+}
+
+.dog-title-item {
+  margin-right: 1em;
+  margin-bottom: 1em;
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+.dog-title-item:last-child {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.dog-title-level {
+  align-items: start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.profile-dog-card {
+  color: #2a2a2a;
+  margin-top: 2em;
+}
+
+.profile-title {
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+.meter-block {
+  border-bottom: .1em solid #dfdfdf;
+  border-left: .1em solid #dfdfdf;
+  border-top: .1em solid #dfdfdf;
+  display: inline-block;
+  padding: 0;
+  text-align: center;
+  width: 1.5em;
+}
+
+.meter-block:last-child {
+  border: .1em solid #dfdfdf;
+  display: inline-block;
+  padding: 0;
+  text-align: center;
+  width: 1.5em;
+}
+
+.wrap-level {
+  flex-wrap: wrap;
+}
+
+#upload-feedback {
+  display: none;
+}
+
+#upload-progress {
+  display: none;
+}
+
+.card-content {
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+.upload-button {
+  font-family: "Carrois Gothic", sans-serif;
+}
+ 
+.button {
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+.navbar-item {
+  font-family: "Carrois Gothic", sans-serif;
+}
+
+/* *************************
+*************************
