@@ -1,0 +1,48 @@
+<section class="section">
+	  <div class="container">
+	    <h1 class="title day-title">{{{title}}}</h1>
+	
+
+	    <div class="columns is-3">
+	      <div class="column content">
+	        <div class="card">
+	          <div class="card-content">
+	            <h2 class="title is-4">Parks</h2>
+	
+
+	            <ul class="parks" id="park-list">
+	              {{#each parks as |park|}}
+	                <li>
+	                  <span class="park-name">{{park.name}}</span>
+	
+
+	
+
+	                  <ul class="time-list" data-park-id="{{park.id}}" data-park-name="{{park.name}}">
+	                    {{#each times as |time|}}
+	                      <li class="time {{time.name}}">
+	                        <a class="time-link" href="#" data-time-name="{{time.name}}" >
+	                          <span class="time-name">{{time.name}}</span>
+	                          <span class="time-range">{{time.range}}</span>
+	                        </a>
+	                      </li>
+	                    {{/each}}
+	                  </ul>
+	                </li>
+	              {{/each}}
+	            </ul>  
+	          </div>
+	        </div>
+	      </div>
+	
+
+	    </div>
+	  </div>
+	</section>
+	
+
+	<script>
+	  const parks = {{{parksJson}}};
+	</script>
+	<script src="/js/day.js"></script>
+
