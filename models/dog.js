@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 //Creating our Dog Model
 module.exports = function(sequelize, DataTypes) {
   var Dog = sequelize.define("Dog", {
@@ -104,5 +105,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
+  Dog.associate = (models) => {
+    models.Dog.belongsTo(models.Owner, {
+      foreignKey: "petId",
+    });
+  };
   return Dog;
 };
