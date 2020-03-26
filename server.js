@@ -5,7 +5,7 @@ var session = require("express-session");
 var passport = require("./config/passport");
 
 // Setting up port and requiring models for syncing
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8083;
 var db = require("./models");
 
 // Creating express app and configuring middleware needed for authentication
@@ -19,6 +19,11 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+var exphbs = require("express-handlebars");
+//Profile handlebars loads pet owner's profile
+app.engine("handlebars", exphbs({ defaultLayout: "profile" }));
+app.set("view engine", "handlebars");
 
 // Requiring our routes
 require("./routes/html-routes.js")(app);
