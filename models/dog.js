@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     },
     longFur: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.STRING
     },
     description: {
       type: DataTypes.TEXT,

@@ -23,6 +23,12 @@ module.exports = function(app) {
       password: req.body.password
     })
       .then(function() {
+        db.Owner.create({
+          name: req.body.name,
+          zipCode: req.body.zipCode
+        });
+      })
+      .then(function() {
         res.redirect(307, "/api/login");
       })
       .catch(function(err) {
