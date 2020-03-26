@@ -1,0 +1,43 @@
+{{!-- dog info modal --}}
+	<div class="modal" id="dogInfoModal">
+	  <div class="modal-background" id="dogInfoModalBackground"></div>
+	  <div class="modal-card">
+	    <header class="modal-card-head">
+	      <p class="modal-card-title" id="dogInfoModalTitle">Modal Title</p>
+	    </header>
+	    <section class="modal-card-body" id="dogInfoModalBody">
+	      <!-- Content ... -->
+	    </section>
+	    <footer class="modal-card-foot">
+	      {{!-- <button class="button is-success">Save changes</button>
+	      <button class="button">Cancel</button> --}}
+	    </footer>
+	  </div>
+	</div>
+	{{!-- end modal --}}
+	
+
+	<section class="section">
+	  <div class="container">
+	    <h3 class="title is-4 has-text-centered"  id="eventTitle">Event</h3>
+	    <div class="columns">
+	      <div class="column has-text-centered" id="attendeesColumn">{{!--attendees column--}}
+	        <div id="attendeesBox">
+	          <h2 class="title is-4">Attendees <span id="buttonSwitch"></span></h2>
+	          <ul class="attendee-list">
+	            {{#each attendee}}
+	            <li data-user-id="{{this.id}}">
+	              <h4 class="subtitle is-4">{{this.name}}</h4> {{!-- list of attendess goes here --}}
+	            </li>
+	            {{/each}}
+	          </ul>
+	        </div>
+	      </div> {{!--end of attendees column--}}
+      </div>
+	  </div>
+	</section>
+
+	<script>
+	  let attending = {{{attendeeJson}}};
+	  let formatedDate = {{{formatedDateJson}}}
+	</script>

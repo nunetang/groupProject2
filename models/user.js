@@ -16,22 +16,6 @@ module.exports = (sequelize, DataType) => {
     password: {
       type: DataType.STRING,
       allowNull: false
-    },
-    name: {
-      type: DataType.STRING,
-      validate: {
-        notEmpty: true,
-        is: ["^[a-z]+$", "i"],
-        len: [1, 100]
-      }
-    },
-    address: {
-      type: DataType.STRING,
-      allowNull: true,
-      validate: {
-        notEmpty: true,
-        is: /\b\d{1,6} +.{2,25}\b(avenue|ave|court|ct|street|st|drive|dr|lane|ln|road|rd|blvd|plaza|parkway|pkwy)[.,]?(.{0,25} +\b\d{5}\b)?/gi
-      }
     }
   });
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
