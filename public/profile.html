@@ -215,8 +215,13 @@
 				<input class="input" type="text" id="dogColor" required />
 			</div>
 			<div class="field">
-				<label class="label">Dog's Fur</label>
-				<input class="input" type="text" id="dogFur" required />
+				<label class="label">Long Fur (Yes/No)</label>
+				<div class="control">
+					<select class="select" id="dogFur" required>
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
+				</div>
 			</div>
 			<div class="field">
 				<label class="label">Dog's Weight (in pounds)</label>
@@ -228,44 +233,59 @@
 			</div>
 			<div class="field">
 				<label class="label">Dog's Type</label>
-				<input class="input" type="text" placeholder="Tell us about your dog!" id="dogBio" />
+				<input class="input" type="text" placeholder="What breed is your dog?" id="dogType" />
 			</div>
 			<div class="field">
 				<label class="label">How energetic is your dog?</label>
 				<div class="control">
 					<select class="select" id="dogEnergy" required>
-						<option value="1">1 (Not at all)</option>
+						<option value="0">0 (Not at all)</option>
+						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
 						<option value="4">4</option>
 						<option value="5">5</option>
-						<option value="6">6 (Very energetic)</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10 (Very energetic)</option>
 					</select>
 				</div>
 			</div>
 			<div class="field">
-				<label class="label">How patient is your dog?</label>
+				<label class="label">How aggressive is your dog?</label>
 				<div class="control">
-					<select class="select" id="dogPatience" required>
-						<option value="1">1 (Not at all)</option>
+					<select class="select" id="dogAggression" required>
+						<option value="0">0 (No Aggression)</option>
+						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
 						<option value="4">4</option>
 						<option value="5">5</option>
-						<option value="6">6 (Very patient)</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10 (Very Aggressive)</option>
 					</select>
 				</div>
 			</div>
 			<div class="field">
-				<label class="label">How dominant does your dog tend to be with other dogs?</label>
+				<label class="label">How social is your dog?</label>
 				<div class="control">
-					<select class="select" id="dogDominance" required>
-						<option value="1">1 (Not at all)</option>
+					<select class="select" id="dogSocial" required>
+						<option value="0">0 (Not at all)</option>
+						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
 						<option value="4">4</option>
 						<option value="5">5</option>
-						<option value="6">6 (Very dominant)</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10 (Very Social)</option>
 					</select>
 				</div>
 			</div>

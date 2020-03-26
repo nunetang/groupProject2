@@ -81,16 +81,4 @@ module.exports = function(app) {
       res.json(result);
     });
   });
-  app.post("/api/dog", function(res, req) {
-    db.Dog.create({
-      name: req.body.name,
-      age: req.body.age,
-      gender: req.body.gender,
-      color: req.body.color,
-      longFur: req.body.longFur,
-      discription: req.body.discription,
-      hyper: req.body.hyper,
-      patient: req.body.patient
-    });
-  });
 };
