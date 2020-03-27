@@ -14,6 +14,6 @@ INSERT INTO Parks (name, createdAt, updatedAt)
 		("akhil@yahoo.com", "$2a$10$LKLZFVXcmW6ybr9EqpkiNuzeyFW30oF072vkk/tBCYOCKEdFYwKAW", "Akhil", "https://www.pexels.com/photo/man-wearing-black-zip-up-jacket-near-beach-smiling-at-the-photo-736716/", CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 	
 
-	INSERT INTO Dogs (name, age, weight, gender, color, longFur, bio, type, energetic, aggressive, social, profileImage, UserId, createdAt, updatedAt)
+	INSERT INTO Dogs (name, gender, bio, weight, energy, patience, dominance, profileImage, UserId, createdAt, updatedAt)
 	VALUES
-		("Fluffy", 3, 30, "female", "brown", "no", "happy pup", "mini poodle", 7, 1, 9, "https://pixabay.com/photos/puppy-dog-pet-animal-cute-white-1903313/", 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+		("Fluffy", "Male", "A Good Boy", 70, 3, 6, 2,  "https://pixabay.com/photos/puppy-dog-pet-animal-cute-white-1903313/", 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

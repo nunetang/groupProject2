@@ -2,29 +2,33 @@ var userID;
 var apiCall;
 let uploadTarget = null;
 
-function getUserEvents(userID){
-  apiCall = "/api/user/user-events/";
-  apiCall += userID;
-  console.log(apiCall);
-  $.get(apiCall).then(function(response) {
-    var x;
-    console.log("events response: ", response);
-    for (x in response) {
-      let parkId = ` data-park-id ="${response[x].parkId}" `;
-      let time = ` data-time = "${response[x].time}" `;
-      let date = ` data-date = "${response[x].date}" `;
-      let eventItem = `
-      <div class="dropdown-item" ${parkId} ${time} ${date}>
-      <p>${response[x].Park.name} - ${response[x].time} of ${response[x].date}</p>
-      </div>
-      <hr class="dropdown-divider">
-      `;
-      $("#userEventsDropdown").append(eventItem);
-    }
-  });
-} //end of get user events
 
-function clickEvents() {
+function getUserEvents(userID){
+    apiCall = "/api/user/user-events/";
+    apiCall += userID;
+  console.log(apiCall);
+    $.get(apiCall).then(function(response) {
+      var x;
+      console.log("events response: ", response);
+      for (x in response) {
+        let parkId = ` data-park-id ="${response[x].parkId}" `;
+        let time = ` data-time = "${response[x].time}" `;
+        let date = ` data-date = "${response[x].date}" `;
+        let eventItem = `
+          <div class="dropdown-item" ${parkId} ${time} ${date}>
+          <p>${response[x].Park.name} - ${response[x].time} of ${response[x].date}</p>
+          </div>
+          <hr class="dropdown-divider">
+          `;
+        $("#userEventsDropdown").append(eventItem);
+      }
+    });
+}//end of get user events
+
+
+function clickEvents(){
+
+
   // click on user event to load specific event page
   $("#userEventsDropdown").on("click", ".dropdown-item", function(){
     console.log("click");
@@ -35,11 +39,14 @@ function clickEvents() {
     console.log(url);
     window.location.href = url;
   })
-} //end of click events
+}//end of click events
+
+
+
 
 function bulmaListeners() {
-  var dropdown = document.querySelector(".dropdown");
-  dropdown.addEventListener("click", function(event) {
+  var dropdown = document.querySelector('.dropdown');
+  dropdown.addEventListener('click', function (event) {
     event.preventDefault();
     dropdown.classList.toggle('is-active');
   });
@@ -47,15 +54,18 @@ function bulmaListeners() {
 
   $("#dogAddModalBackground").click(function() {
     $("#newDogModal").toggleClass("is-active");
-  })
+  });
+
 
   $("#profileImageModalBackground").click(function() {
     $("#profile-image-modal").toggleClass("is-active");
   });
-} //end of bulma listener
+};//end of bulma listener
+
 
 function makeMeterElement(faIconName, stat) {
   let result = "";
+
 
   for (let i = 0; i < 6; i++) {
     if (i < stat) {
@@ -65,17 +75,23 @@ function makeMeterElement(faIconName, stat) {
     }
   }
 
+
   return $(`<span class="dog-meter">${result}</span>`);
 }
 
+
+
+
 $(document).ready(function() {
   //reload page if accessed via back navigation
-  if (performance.navigation.type === 2) {
+  if(performance.navigation.type == 2){
     location.reload(true);
-  }
-
+  };
+ 
   clickEvents();
   bulmaListeners();
+  
+
 
   $.get("/api/user_data")
     .then(function(data) {
@@ -93,6 +109,7 @@ $(document).ready(function() {
           `<input class="input" type="text" placeholder="${userName}" id="nameInput"></input>`
         );
         $("#nameControl").prepend(nameField);
+        
         if (response.profileImage) {
           $("#profile-image").attr("src", response.profileImage);
         }
@@ -109,12 +126,14 @@ $(document).ready(function() {
           var dogNameLevel = $(`<div class="dog-title-level content">`);
           // name
           var dogName = $(
-            "<strong class='dog-title-item'>" + response[x].name + "</strong>"
+            "<strong class='dog-title-item'>" +
+              response[x].name +
+              "</strong>"
           );
           // delete button
           var dogDelete = $(
-            "<button class='button is-danger is-small dog-title-item' id='dogDeleteBtn' data-id=" + 
-            response[x].id +
+            "<button class='button is-danger is-small dog-title-item' id='dogDeleteBtn' data-id=" +
+              response[x].id +
               ">Delete</button>"
           );
           // bio
@@ -136,8 +155,8 @@ $(document).ready(function() {
               " lb.</p>"
           );
           // energy
-          let dogAggressive = $(`<p>Energy Level</p>`);
-          const energyMeter = makeMeterElement("fa-bolt", response[x].aggressive);
+          let dogEnergy = $(`<p>Energy Level</p>`);
+          const energyMeter = makeMeterElement("fa-bolt", response[x].energy);
           dogEnergy.append(energyMeter);
           // patience
           let dogPatience = $(`<p>Patience Level</p>`);
@@ -158,6 +177,7 @@ $(document).ready(function() {
             </figure>
             <button class="button upload-button" data-upload-target-type="dog" data-upload-target-id="${response[x].id}">Update</button>`
           );
+          
           var lineBreak = $("<hr>");
           // main dog "row"
           var dogLevel = $("<div class='columns dogLevel'></div>");
@@ -168,7 +188,7 @@ $(document).ready(function() {
           // right column
           var dogInfoColumn = $(
             "<div class='column dogInfoColumn'></div>"
-      );
+          );
           $(dogInfoColumn).prepend(
             dogNameLevel,
             dogBio,
@@ -186,196 +206,185 @@ $(document).ready(function() {
           $("#dogContent").append(dogLevel);
         }
       });
-    });
+    })
 });
+
 
 $("#addDogBtn").click(function() {
   $("#newDogModal").toggleClass("is-active");
 });
 
+
 $(".modal-close").click((event) => {
   $(".modal").removeClass("is-active");
 });
 
+
 $("#submitDogBtn").click(function(event) {
   event.preventDefault();
 
-var newDog = {
-name: $("#dogName")
-.val()
-.trim(),
-age: $("#dogAge")
-.val()
-.trim(),
-gender: $("#dogGender")
-.val()
-.trim(),
-weight: $("#dogWeight")
-.val()
-.trim(),
-bio: $("#dogBio")
-.val()
-.trim(),
-energetic: $("#dogEnergy")
-.val()
-.trim(),
-social: $("#dogSocial")
-.val()
-.trim(),
-aggressive: $("#dogAggression")
-.val()
-.trim(),
-color: $("#dogColor")
-.val()
-.trim(),
-longFur: $("#dogFur")
-.val()
-.trim(),
-type: $("#dogType")
-.val()
-.trim()
-};
+
+  var newDog = {
+    name: $("#dogName")
+      .val()
+      .trim(),
+    gender: $("#dogGender")
+      .val()
+      .trim(),
+    weight: $("#dogWeight")
+      .val()
+      .trim(),
+    bio: $("#dogBio")
+      .val()
+      .trim(),
+    energy: $("#dogEnergy")
+      .val()
+      .trim(),
+    patience: $("#dogPatience")
+      .val()
+      .trim(),
+    dominance: $("#dogDominance")
+      .val()
+      .trim(),
+    UserId: userID
+  };
 
 
-if (
-(newDog.name,
-newDog.age,
-newDog.gender,
-newDog.weight,
-newDog.bio,
-newDog.energetic,
-newDog.social,
-newDog.aggressive,
-newDog.color,
-newDog.longFur,
-newDog.type)
-) {
-$.ajax("/api/dog", {
-  type: "POST",
-  data: newDog
-}).then(function() {
-  location.reload();
-});
-} else {
-alert("Please fill out the entire form.");
-}
+  if (
+    (newDog.name,
+    newDog.gender,
+    newDog.weight,
+    newDog.bio,
+    newDog.energy,
+    newDog.patience,
+    newDog.dominance)
+  ) {
+    $.ajax("/api/dog", {
+      type: "POST",
+      data: newDog
+    }).then(function() {
+      location.reload();
+    });
+  } else {
+    alert("Please fill out the entire form.");
+  }
 });
 
 
 $(document).on("click", "#dogDeleteBtn", function() {
-var toDelete = $(this).data("id");
-var apiURL = "/api/dog/";
-apiURL += toDelete;
-$.ajax({
-url: apiURL,
-method: "DELETE"
-}).then(function() {
-location.reload();
-});
+  var toDelete = $(this).data("id");
+  var apiURL = "/api/dog/";
+  apiURL += toDelete;
+  $.ajax({
+    url: apiURL,
+    method: "DELETE"
+  }).then(function() {
+    location.reload();
+  });
 });
 
 
 $("#nameBtn").click(function() {
-var newName = $("#nameInput")
-.val()
-.trim();
-var apiURL = "/api/user/name/";
-apiURL += userID;
+  var newName = $("#nameInput")
+    .val()
+    .trim();
+  var apiURL = "/api/user/name/";
+  apiURL += userID;
 
 
-$.ajax({
-url: apiURL,
-method: "PUT",
-data: { name: newName }
-}).then(function() {
-location.reload();
-});
+  $.ajax({
+    url: apiURL,
+    method: "PUT",
+    data: { name: newName }
+  }).then(function() {
+    location.reload();
+  });
 });
 
 
 $(document).on("click", ".upload-button", (event) => {
-const button = $(event.currentTarget);
+  const button = $(event.currentTarget);
 
 
-uploadTarget = {
-type: button.data("upload-target-type"),
-id: button.data("upload-target-id"),
-};
+  uploadTarget = {
+    type: button.data("upload-target-type"),
+    id: button.data("upload-target-id"),
+  };
 
 
-$("#pick-file").val(null);
-$("#pick-file-name").text("");
-$("#upload-feedback").hide();
+  $("#pick-file").val(null);
+  $("#pick-file-name").text("");
+  $("#upload-feedback").hide();
 
 
-$("#profile-image-modal").toggleClass("is-active");
+  $("#profile-image-modal").toggleClass("is-active");
 });
 
 
 $("#pick-file").change((event) => {
-const input = event.currentTarget;
-if (input.files.length > 0) {
-$("#pick-file-name").text(input.files[0].name);
-} else {
-$("#pick-file-name").text("");
-}
+  const input = event.currentTarget;
+  if (input.files.length > 0) {
+    $("#pick-file-name").text(input.files[0].name);
+  } else {
+    $("#pick-file-name").text("");
+  }
 });
 
 
 $("#picture-upload").submit((event) => {
-event.preventDefault();
+  event.preventDefault();
 
 
-if ($("#pick-file")[0].files.length === 0) {
-return;
-}
+  if ($("#pick-file")[0].files.length === 0) {
+    return;
+  }
 
 
-$("#upload-feedback").hide();
-$("#upload-progress").show();
+  $("#upload-feedback").hide();
+  $("#upload-progress").show();
 
 
-let apiUrl;
-switch (uploadTarget.type) {
-case "user":
-  apiUrl = `/api/user/${userID}/profile-image`;
-  break;
+  let apiUrl;
+  switch (uploadTarget.type) {
+    case "user":
+      apiUrl = `/api/user/${userID}/profile-image`;
+      break;
 
 
-case "dog":
-  apiUrl = `/api/dog/${uploadTarget.id}/profile-image`;
-  break;
-}
+    case "dog":
+      apiUrl = `/api/dog/${uploadTarget.id}/profile-image`;
+      break;
+  }
 
 
-$.ajax({
-  url: apiUrl,
-  type: "PATCH",
-  data: new FormData(event.currentTarget),
-  cache: false,
-  contentType: false,
-  processData: false,
-  xhr: () => {
-    const myXhr = $.ajaxSettings.xhr();
-    if (myXhr.upload) {
-      myXhr.upload.addEventListener("progress", (event) => {
-          if (event.lengthComputable) {
-            $("#upload-progress").attr({
-              value: event.loaded,
-              max: event.total,
-            });
-          }
-        }, false);
-    }
-    return myXhr;
-  },
-})
-.then((responseJson) => {
-  location.reload();
-})
-.catch((error) => {
-  console.error(error);
-  $("#upload-feedback").show();
-  $("#upload-progress").hide();
-});
+  $.ajax({
+      url: apiUrl,
+      type: "PATCH",
+      data: new FormData(event.currentTarget),
+      cache: false,
+      contentType: false,
+      processData: false,
+      xhr: () => {
+        const myXhr = $.ajaxSettings.xhr();
+        if (myXhr.upload) {
+          myXhr.upload.addEventListener("progress", (event) => {
+              if (event.lengthComputable) {
+                $("#upload-progress").attr({
+                  value: event.loaded,
+                  max: event.total,
+                });
+              }
+            }, false);
+        }
+        return myXhr;
+      },
+    })
+    .then((responseJson) => {
+      location.reload();
+    })
+    .catch((error) => {
+      console.error(error);
+      $("#upload-feedback").show();
+      $("#upload-progress").hide();
+    });
 });
