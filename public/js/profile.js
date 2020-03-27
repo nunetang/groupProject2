@@ -4,10 +4,108 @@ $(document).ready(function() {
   var apiCall;
   var uploadTarget = null;
 
+  //Pull dogs if any exist for the current user
+  //getMyDogs();
+
   //api call to pull email of signed in user
   $.get("/api/user_data").then(function(result) {
     $(".owner-name").text(`${result.name}! This is your profile page!`);
   });
+
+
+  $("#addDogBtn").click(function() {
+    $("#newDogModal").toggleClass("is-active");
+  });
+
+  $(".modal-close").click(function() {
+    $(".modal").removeClass("is-active");
+  });
+
+  
+  //Click event to add dog, calls createDog function
+  $("#submitDogBtn").click(function(event) {
+    event.preventDefault();
+
+    var newDog = {
+      name: $("#dogName")
+        .val()
+        .trim(),
+      age: $("#dogAge")
+        .val()
+        .trim(),
+      gender: $("#dogGender")
+        .val()
+        .trim(),
+      weight: $("#dogWeight")
+        .val()
+        .trim(),
+      bio: $("#dogBio")
+        .val()
+        .trim(),
+      energetic: $("#dogEnergy")
+        .val()
+        .trim(),
+      social: $("#dogSocial")
+        .val()
+        .trim(),
+      aggressive: $("#dogAggression")
+        .val()
+        .trim(),
+      color: $("#dogColor")
+        .val()
+        .trim(),
+      longFur: $("#dogFur")
+        .val()
+        .trim(),
+      type: $("#dogType")
+        .val()
+        .trim()
+      //Pass owner id once functionality add to post/get owner info
+    };
+    if (
+      newDog.name,
+      newDog.gender,
+      newDog.weight,
+      newDog.bio,
+      newDog.energy,
+      newDog.social,
+      newDog.aggressive)
+     
+    {
+      createDog(newDog);
+    }
+  });
+
+  
+  //Function used to post dog info to backend route
+  function createDog(newDog) {
+    $.post("/api/create/dog", newDog)
+      .then(function(results) {
+        console.log(results);
+        $("#newDogModal").removeClass("is-active");
+        window.location.replace("/profile");
+        console.log("Dog creation successful!");
+        //getMyDogs();
+      });
+  };
+
+  // function getMyDogs(user) {
+  //   ownerId = user || "";
+  //   if (ownerId) {
+  //     ownerId = "/?ownerId" + ownerId;
+  //   }
+  //   $.get("/api/dogs" + ownerId, function(data) {
+  //     console.log("Dogs", data);
+  //     dogs = data;
+  //     if (!dogs || !dogs.length) {
+  //       $("#yourDogs").text(`You haven't registered any dogs!`);
+  //       return;
+  //     }
+  //   })
+  //   .then(function(results) {
+  //     $("#yourDogs").text(`You've registered ${results.name}`);
+  //   })
+  // }
 
   function getUserEvents(userID) {
     apiCall = "/api/user/user-events/";
@@ -202,80 +300,7 @@ $(document).ready(function() {
       });
   });
 
-  $("#addDogBtn").click(function() {
-    $("#newDogModal").toggleClass("is-active");
-  });
-
-  $(".modal-close").click(function() {
-    $(".modal").removeClass("is-active");
-  });
-
   
-  //Click event to add dog, calls createDog function
-  $("#submitDogBtn").click(function(event) {
-    event.preventDefault();
-
-    var newDog = {
-      name: $("#dogName")
-        .val()
-        .trim(),
-      age: $("#dogAge")
-        .val()
-        .trim(),
-      gender: $("#dogGender")
-        .val()
-        .trim(),
-      weight: $("#dogWeight")
-        .val()
-        .trim(),
-      bio: $("#dogBio")
-        .val()
-        .trim(),
-      energetic: $("#dogEnergy")
-        .val()
-        .trim(),
-      social: $("#dogSocial")
-        .val()
-        .trim(),
-      aggressive: $("#dogAggression")
-        .val()
-        .trim(),
-      color: $("#dogColor")
-        .val()
-        .trim(),
-      longFur: $("#dogFur")
-        .val()
-        .trim(),
-      type: $("#dogType")
-        .val()
-        .trim()
-      //Pass owner id once functionality add to post/get owner info
-    };
-    if (
-      newDog.name,
-      newDog.gender,
-      newDog.weight,
-      newDog.bio,
-      newDog.energy,
-      newDog.social,
-      newDog.aggressive)
-     
-    {
-      createDog(newDog);
-    }
-  });
-
-  
-  //Function used to post dog info to backend route
-  function createDog(newDog) {
-    $.post("/api/create/dog", newDog)
-      .then(function(results) {
-        console.log(results);
-        $("#newDogModal").removeClass("is-active");
-        window.location.replace("/profile");
-        console.log("Dog creation successful!");
-      });
-  }
 
   $(document).on("click", "#dogDeleteBtn", function() {
     var toDelete = $(this).data("id");
