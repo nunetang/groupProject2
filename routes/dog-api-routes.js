@@ -21,19 +21,18 @@ module.exports = function(app) {
   });
 
   app.post("/api/create/dog", function(req, res) {
-    console.log("POST DOG")
+    console.log("POST DOG");
     // console.log(req)
     // console.log(req.user)
     // console.log(req.body)
-    req.body.OwnerId = req.user.id
+    req.body.OwnerId = req.user.id;
     // console.log(req.body)
 
     db.Dog.create(req.body)
       .then(function(result) {
         // res.redirect(307, "/profile");
         res.json(result);
-      })
-      .catch(function(err) {
+      }).catch(function(err) {
         res.status(401).json(err);
       });
   });
