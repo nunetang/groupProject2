@@ -14,11 +14,11 @@ function getCurrentEvents(){
         left: "prev,next today",
         center: "title",
         // right: 'month'
-      },/*
+      },
       dayClick: function (date) {
         console.log("clicked" + date.format());
         date = date.format();
-        window.location.href = "/day/" + date;
+        window.location.href = "/day.html";
       },
       eventClick: function (calEvent, jsEvent, view) {
         // console.log('clicked ', calEvent);
@@ -26,8 +26,8 @@ function getCurrentEvents(){
         let date = calEvent.start._i;
 
         // date = date.format();
-        window.location.href = "/day/" + date;
-      }*/
+        window.location.href = "/day.html";
+      }
     });
     
   });
