@@ -54,9 +54,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     },
     longFur: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.STRING
     },
-    description: {
+    bio: {
       type: DataTypes.TEXT,
       allowNull: false
     },
@@ -64,7 +64,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       specifications: DataTypes.STRING,
       validate: {
-        isString: true,
         len: [1, 250],
         notEmpty: true
       }

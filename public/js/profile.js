@@ -4,6 +4,7 @@ $(document).ready(function() {
   var apiCall;
   var uploadTarget = null;
 
+  //api call to pull email of signed in user
   $.get("/api/user_data").then(function(result) {
     $(".owner-name").text(result.email);
   });
@@ -209,11 +210,74 @@ $(document).ready(function() {
     $(".modal").removeClass("is-active");
   });
 
+  // $("#submitDogBtn").click(function(event) {
+  //   event.preventDefault();
+
+  //   var newDog = {
+  //     name: $("#dogName")
+  //       .val()
+  //       .trim(),
+  //     age: $("#dogAge")
+  //       .val()
+  //       .trim(),
+  //     gender: $("#dogGender")
+  //       .val()
+  //       .trim(),
+  //     weight: $("#dogWeight")
+  //       .val()
+  //       .trim(),
+  //     bio: $("#dogBio")
+  //       .val()
+  //       .trim(),
+  //     energetic: $("#dogEnergy")
+  //       .val()
+  //       .trim(),
+  //     social: $("#dogSocial")
+  //       .val()
+  //       .trim(),
+  //     aggressive: $("#dogAggression")
+  //       .val()
+  //       .trim(),
+  //     color: $("#dogColor")
+  //       .val()
+  //       .trim(),
+  //     longFur: $("#dogFur")
+  //       .val()
+  //       .trim(),
+  //     type: $("#dogType")
+  //       .val()
+  //       .trim(),
+  //     UserId: userID
+  //   };
+
+  //   if (
+  //     (newDog.name,
+  //     newDog.gender,
+  //     newDog.weight,
+  //     newDog.bio,
+  //     newDog.energy,
+  //     newDog.social,
+  //     newDog.aggressive)
+  //   ) {
+  //     $.ajax("/api/dog", {
+  //       type: "POST",
+  //       data: newDog
+  //     }).then(function() {
+  //       location.reload();
+  //     });
+  //   } else {
+  //     alert("Please fill out the entire form.");
+  //   }
+  // });
+
   $("#submitDogBtn").click(function(event) {
     event.preventDefault();
 
     var newDog = {
       name: $("#dogName")
+        .val()
+        .trim(),
+      age: $("#dogAge")
         .val()
         .trim(),
       gender: $("#dogGender")
@@ -225,37 +289,60 @@ $(document).ready(function() {
       bio: $("#dogBio")
         .val()
         .trim(),
-      energy: $("#dogEnergy")
+      energetic: $("#dogEnergy")
         .val()
         .trim(),
-      patience: $("#dogPatience")
+      social: $("#dogSocial")
         .val()
         .trim(),
-      dominance: $("#dogDominance")
+      aggressive: $("#dogAggression")
         .val()
         .trim(),
-      UserId: userID
+      color: $("#dogColor")
+        .val()
+        .trim(),
+      longFur: $("#dogFur")
+        .val()
+        .trim(),
+      type: $("#dogType")
+        .val()
+        .trim()
+      //Pass owner id once functionality add to post/get owner info
     };
-
     if (
-      (newDog.name,
+      newDog.name,
       newDog.gender,
       newDog.weight,
       newDog.bio,
       newDog.energy,
-      newDog.patience,
-      newDog.dominance)
-    ) {
-      $.ajax("/api/dog", {
-        type: "POST",
-        data: newDog
-      }).then(function() {
-        location.reload();
-      });
-    } else {
-      alert("Please fill out the entire form.");
+      newDog.social,
+      newDog.aggressive)
+     
+    {
+      createDog(newDog);
     }
   });
+
+  function createDog(newDog) {
+    $.post("/api/create/dog", {
+      name: newDog.name,
+      age: newDog.age,
+      gender: newDog.gender,
+      weight: newDog.weight,
+      bio: newDog.bio,
+      energetic: newDog.energetic,
+      social: newDog.social,
+      aggressive: newDog.aggressive,
+      color: newDog.color,
+      longFur: newDog.longFur,
+      type: newDog.type
+    })
+      .then(function() {
+        $("#newDogModal").removeClass("is-active");
+        window.location.replace("/profile");
+        console.log("Dog creation successful!");
+      });
+  }
 
   $(document).on("click", "#dogDeleteBtn", function() {
     var toDelete = $(this).data("id");
