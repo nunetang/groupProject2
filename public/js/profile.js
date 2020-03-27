@@ -87,7 +87,7 @@ $(document).ready(function() {
         console.log("Dog creation successful!");
         //getMyDogs();
       });
-  };
+  }
 
   // function getMyDogs(user) {
   //   ownerId = user || "";
