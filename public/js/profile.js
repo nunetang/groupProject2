@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   //api call to pull email of signed in user
   $.get("/api/user_data").then(function(result) {
-    $(".owner-name").text(result.email);
+    $(".owner-name").text(`${result.name}! This is your profile page!`);
   });
 
   function getUserEvents(userID) {
@@ -210,66 +210,8 @@ $(document).ready(function() {
     $(".modal").removeClass("is-active");
   });
 
-  // $("#submitDogBtn").click(function(event) {
-  //   event.preventDefault();
-
-  //   var newDog = {
-  //     name: $("#dogName")
-  //       .val()
-  //       .trim(),
-  //     age: $("#dogAge")
-  //       .val()
-  //       .trim(),
-  //     gender: $("#dogGender")
-  //       .val()
-  //       .trim(),
-  //     weight: $("#dogWeight")
-  //       .val()
-  //       .trim(),
-  //     bio: $("#dogBio")
-  //       .val()
-  //       .trim(),
-  //     energetic: $("#dogEnergy")
-  //       .val()
-  //       .trim(),
-  //     social: $("#dogSocial")
-  //       .val()
-  //       .trim(),
-  //     aggressive: $("#dogAggression")
-  //       .val()
-  //       .trim(),
-  //     color: $("#dogColor")
-  //       .val()
-  //       .trim(),
-  //     longFur: $("#dogFur")
-  //       .val()
-  //       .trim(),
-  //     type: $("#dogType")
-  //       .val()
-  //       .trim(),
-  //     UserId: userID
-  //   };
-
-  //   if (
-  //     (newDog.name,
-  //     newDog.gender,
-  //     newDog.weight,
-  //     newDog.bio,
-  //     newDog.energy,
-  //     newDog.social,
-  //     newDog.aggressive)
-  //   ) {
-  //     $.ajax("/api/dog", {
-  //       type: "POST",
-  //       data: newDog
-  //     }).then(function() {
-  //       location.reload();
-  //     });
-  //   } else {
-  //     alert("Please fill out the entire form.");
-  //   }
-  // });
-
+  
+  //Click event to add dog, calls createDog function
   $("#submitDogBtn").click(function(event) {
     event.preventDefault();
 
@@ -323,21 +265,12 @@ $(document).ready(function() {
     }
   });
 
+  
+  //Function used to post dog info to backend route
   function createDog(newDog) {
-    $.post("/api/create/dog", {
-      name: newDog.name,
-      age: newDog.age,
-      gender: newDog.gender,
-      weight: newDog.weight,
-      bio: newDog.bio,
-      energetic: newDog.energetic,
-      social: newDog.social,
-      aggressive: newDog.aggressive,
-      color: newDog.color,
-      longFur: newDog.longFur,
-      type: newDog.type
-    })
-      .then(function() {
+    $.post("/api/create/dog", newDog)
+      .then(function(results) {
+        console.log(results);
         $("#newDogModal").removeClass("is-active");
         window.location.replace("/profile");
         console.log("Dog creation successful!");
@@ -453,3 +386,6 @@ $(document).ready(function() {
       });
   });
 });
+
+
+

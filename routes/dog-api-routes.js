@@ -21,19 +21,14 @@ module.exports = function(app) {
   });
 
   app.post("/api/create/dog", function(req, res) {
-    db.Dog.create({
-      name: req.body.name,
-      age: req.body.age,
-      gender: req.body.gender,
-      weight: req.body.weight,
-      bio: req.body.bio,
-      energetic: req.body.energetic,
-      social: req.body.social,
-      aggressive: req.body.aggressive,
-      color: req.body.color,
-      longFur: req.body.longFur,
-      type: req.body.type
-    })
+    console.log("POST DOG")
+    // console.log(req)
+    // console.log(req.user)
+    // console.log(req.body)
+    req.body.OwnerId = req.user.id
+    // console.log(req.body)
+
+    db.Dog.create(req.body)
       .then(function(result) {
         // res.redirect(307, "/profile");
         res.json(result);

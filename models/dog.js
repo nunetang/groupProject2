@@ -105,8 +105,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   Dog.associate = (models) => {
-    models.Dog.belongsTo(models.Owner, {
-      foreignKey: "petId",
+    models.Dog.belongsTo(models.User, {
+      foreignKey: "OwnerId",
     });
   };
   return Dog;
