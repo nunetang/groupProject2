@@ -73,7 +73,7 @@ module.exports = function(app) {
     });
   });
   app.get("/api/user/:id", function(req, res) {
-    db.User.findAll({
+    db.User.findOne({
       where: {
         id: req.params.id
       }
@@ -144,6 +144,8 @@ module.exports = function(app) {
     });
   }); //end of dog delete
 
+  //      Event API Routes
+
   app.get("/api/event/date", (request, response) => {
     const options = {
       attributes: [
@@ -189,4 +191,67 @@ module.exports = function(app) {
       res.json(response);
     });
   }); //end of current events on this date
+
+  app.get("/api/events", (req, res) => {
+    db.EventDayTimePark.findAll({
+      attributes: [["date", "start"]],
+      group: ["date"]
+    }).then(response => {
+      res.json(response);
+    });
+  }); //end of currentevents
+
+  app.get("/api/user/user-events/:id", (req, res) => {
+    db.EventDayTimePark.findAll({
+      where: {
+        UserId: req.params.id
+      },
+      include: [
+        {
+          model: db.Park,
+          required: true,
+          attributes: ["name"]
+        }
+      ]
+    }).then(response => {
+      res.json(response);
+    });
+  });
+  app.get("/api/event/user-events/:id", (req, res) => {
+    db.EventDayTimePark.findAll({
+      attributes: [["date", "start"]],
+      group: ["date"]
+    }).then(response => {
+      res.json(response);
+    });
+  }); //end of currentevents
+
+  app.post("/api/event/attend", (req, res) => {
+    console.log(req.body);
+    db.EventDayTimePark.create({
+      date: req.body.date,
+      time: req.body.time,
+      parkId: req.body.parkId,
+      UserId: req.body.userId
+    }).then(attendee => {
+      console.log(attendee.dataValues);
+      res.json(attendee);
+    });
+    //end of dbEventDayTimePark create
+  });
+
+  app.delete("/api/event/attend", (req, res) => {
+    console.log("reqbody: ", req.body);
+    db.EventDayTimePark.destroy({
+      where: {
+        date: req.body.date,
+        time: req.body.time,
+        parkId: req.body.parkId,
+        UserId: req.body.userId
+      }
+    }).then(destroyed => {
+      res.json(destroyed);
+      console.log(destroyed);
+    });
+  });
 };

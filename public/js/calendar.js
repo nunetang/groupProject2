@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 function getCurrentEvents(){
-  $.get("/api/event/active-events", (response) => {
+  $.get("/api/events", (response) => {
     // console.log(response);
     response.forEach(obj => {
       obj.title = "Active Play Date!";
@@ -14,7 +14,7 @@ function getCurrentEvents(){
         left: "prev,next today",
         center: "title",
         // right: 'month'
-      },
+      },/*
       dayClick: function (date) {
         console.log("clicked" + date.format());
         date = date.format();
@@ -27,7 +27,7 @@ function getCurrentEvents(){
 
         // date = date.format();
         window.location.href = "/day/" + date;
-      }
+      }*/
     });
     
   });
@@ -41,7 +41,9 @@ $(document).ready(function(){
     location.reload(true);
   }
   var now = moment().format();
-  // console.log(now);
+  console.log(`Time is ${now}`);
   // calenderCall();
   getCurrentEvents();
 });
+
+

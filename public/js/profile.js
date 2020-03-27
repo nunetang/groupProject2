@@ -92,7 +92,7 @@ $(document).ready(function() {
         sessionStorage.setItem("userName", userName);
         sessionStorage.setItem("userId", userID);
         var nameField = $(
-          `<input class="input" type="text" placeholder="${userName}" id="nameInput"></input>`
+          `<input class="input" type="text" id="nameInput">${userName}</input>`
         );
         $("#nameControl").prepend(nameField);
 
