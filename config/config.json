@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "ariHuy12",
     "database": "passport_demo",
     "host": "localhost",
     "port": 3306,
