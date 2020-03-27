@@ -79,4 +79,44 @@ module.exports = function(app) {
       res.json(result);
     });
   });
+
+  // **** dog api routes *****
+  app.get("/api/dog/:id", (req, res) => {
+    db.Dog.findAll({
+      where: {
+        UserID: req.params.id
+      },
+      include: [
+        {
+          model: db.User,
+          required: true,
+          attributes: ["name"]
+        }
+      ]
+    })
+      .then(dogs => {
+        // console.log(dogs[0].User.dataValues.name);
+        // console.log(dogs);
+        res.json(dogs);
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.json(err);
+        // res.status(422).json(err.errors[0].message);
+      });
+  }); //end of get all dogs by user id
+  app.post("/api/dog", (request, response) => {
+    db.Dog.create(request.body).then(dog => {
+      response.json(dog);
+    });
+  }); //end of create new dog
+  app.delete("/api/dog/:id", (request, response) => {
+    db.Dog.destroy({
+      where: {
+        id: request.params.id
+      }
+    }).then(dog => {
+      response.json(dog);
+    });
+  }); //end of dog delete
 };

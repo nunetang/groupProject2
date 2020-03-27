@@ -1,11 +1,12 @@
-// Requiring bcrypt for password hashing. Using the bcryptjs version as the regular bcrypt module sometimes causes errors on Windows machines
-var bcrypt = require("bcryptjs");
+/* eslint-disable prettier/prettier */
+// sometimes causes errors on Windows machines
+var bcrypt = require("bcrypt-nodejs");
 // Creating our User model
-module.exports = (sequelize, DataType) => {
+module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
     // The email cannot be null, and must be a proper email before creation
     email: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
@@ -14,36 +15,22 @@ module.exports = (sequelize, DataType) => {
     },
     // The password cannot be null
     password: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     name: {
-      type: DataType.STRING,
-      allowNull: false,
+      type: DataTypes.STRING,
+      defaultValue: "Anonymous",
+      allowNull: true
+    },
+    profileImage: {
+      type: DataTypes.STRING,
+      allowNull: true,
       validate: {
-        notEmpty: {
-          args: true,
-          msg: "Required"
-        },
-        is: {
-          args: ["^[a-z]+$", "i"],
-          msg: "Only letters allowed"
-        },
-        len: {
-          args: [1, 100],
-          msg: "Name of the owner is not in this range"
-        }
+        isUrl: true,
       }
     }
   });
-
-  // User.associate = function(models) {
-  //   // Associating Author with Posts
-  //   // When an Author is deleted, also delete any associated Posts
-  //   User.hasMany(models.Dog, {
-  //     onDelete: "cascade"
-  //   });
-  // };
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
@@ -57,5 +44,16 @@ module.exports = (sequelize, DataType) => {
       null
     );
   });
+
+  User.associate = function(models) {
+    models.User.hasMany(models.Dog, {
+      onDelete: "CASCADE"
+    }),
+    models.User.hasMany(models.EventDayTimePark, {
+      onDelete: "CASCADE"
+    });
+  };
+  
   return User;
 };
+

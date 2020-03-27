@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "passport_demo",
+    "password": "password",
+    "database": "dogs4_out",
     "host": "localhost",
     "port": 3306,
     "dialect": "mysql"
