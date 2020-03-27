@@ -1,36 +1,34 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
 var userID;
 var apiCall;
 let uploadTarget = null;
 
+function getUserEvents(userID) {
+  apiCall = "/api/user/user-events/";
+  apiCall += userID;
 
-function getUserEvents(userID){
-    apiCall = "/api/user/user-events/";
-    apiCall += userID;
-  console.log(apiCall);
-    $.get(apiCall).then(function(response) {
-      var x;
-      console.log("events response: ", response);
-      for (x in response) {
-        let parkId = ` data-park-id ="${response[x].parkId}" `;
-        let time = ` data-time = "${response[x].time}" `;
-        let date = ` data-date = "${response[x].date}" `;
-        let eventItem = `
+  $.get(apiCall).then(function(response) {
+    var x;
+    console.log("events response: ", response);
+    for (x in response) {
+      let parkId = ` data-park-id ="${response[x].parkId}" `;
+      let time = ` data-time = "${response[x].time}" `;
+      let date = ` data-date = "${response[x].date}" `;
+      let eventItem = `
           <div class="dropdown-item" ${parkId} ${time} ${date}>
           <p>${response[x].Park.name} - ${response[x].time} of ${response[x].date}</p>
           </div>
           <hr class="dropdown-divider">
           `;
-        $("#userEventsDropdown").append(eventItem);
-      }
-    });
-}//end of get user events
+      $("#userEventsDropdown").append(eventItem);
+    }
+  });
+} //end of get user events
 
-
-function clickEvents(){
-
-
+function clickEvents() {
   // click on user event to load specific event page
-  $("#userEventsDropdown").on("click", ".dropdown-item", function(){
+  $("#userEventsDropdown").on("click", ".dropdown-item", function() {
     console.log("click");
     let eventTime = $(this).attr("data-time");
     let eventDate = $(this).attr("data-date");
@@ -38,60 +36,48 @@ function clickEvents(){
     let url = `/event/day/${eventDate}/${eventTime}/${parkId}`;
     console.log(url);
     window.location.href = url;
-  })
-}//end of click events
-
-
-
+  });
+} //end of click events
 
 function bulmaListeners() {
-  var dropdown = document.querySelector('.dropdown');
-  dropdown.addEventListener('click', function (event) {
+  var dropdown = document.querySelector(".dropdown");
+  dropdown.addEventListener("click", function (event) {
     event.preventDefault();
-    dropdown.classList.toggle('is-active');
+    dropdown.classList.toggle("is-active");
   });
-
 
   $("#dogAddModalBackground").click(function() {
     $("#newDogModal").toggleClass("is-active");
   });
 
-
   $("#profileImageModalBackground").click(function() {
     $("#profile-image-modal").toggleClass("is-active");
   });
-};//end of bulma listener
+}//end of bulma listener
 
 
 function makeMeterElement(faIconName, stat) {
   let result = "";
 
-
   for (let i = 0; i < 6; i++) {
     if (i < stat) {
       result += `<span class="meter-block"><i class="fas ${faIconName}"></i></span>`;
     } else {
-      result += `<span class="meter-block">-</span>`;
+      result += "<span class=\"meter-block\">-</span>";
     }
   }
-
 
   return $(`<span class="dog-meter">${result}</span>`);
 }
 
-
-
-
 $(document).ready(function() {
   //reload page if accessed via back navigation
-  if(performance.navigation.type == 2){
+  if (performance.navigation.type === 2) {
     location.reload(true);
-  };
+  }
  
   clickEvents();
   bulmaListeners();
-  
-
 
   $.get("/api/user_data")
     .then(function(data) {
@@ -109,7 +95,7 @@ $(document).ready(function() {
           `<input class="input" type="text" placeholder="${userName}" id="nameInput"></input>`
         );
         $("#nameControl").prepend(nameField);
-        
+
         if (response.profileImage) {
           $("#profile-image").attr("src", response.profileImage);
         }
@@ -123,12 +109,10 @@ $(document).ready(function() {
         var x;
         // loops through results and creates HTML elements for each dog
         for (x in response) {
-          var dogNameLevel = $(`<div class="dog-title-level content">`);
+          var dogNameLevel = $("<div class=\"dog-title-level content\">");
           // name
           var dogName = $(
-            "<strong class='dog-title-item'>" +
-              response[x].name +
-              "</strong>"
+            "<strong class='dog-title-item'>" + response[x].name + "</strong>"
           );
           // delete button
           var dogDelete = $(
@@ -155,16 +139,22 @@ $(document).ready(function() {
               " lb.</p>"
           );
           // energy
-          let dogEnergy = $(`<p>Energy Level</p>`);
+          let dogEnergy = $("<p>Energy Level</p>");
           const energyMeter = makeMeterElement("fa-bolt", response[x].energy);
           dogEnergy.append(energyMeter);
           // patience
-          let dogPatience = $(`<p>Patience Level</p>`);
-          const patienceMeter = makeMeterElement("fa-paw", response[x].patience);
+          let dogPatience = $("<p>Patience Level</p>");
+          const patienceMeter = makeMeterElement(
+            "fa-paw",
+            response[x].patience
+          );
           dogPatience.append(patienceMeter);
           // dominance
-          let dogDominance = $(`<p>Dominance Level</p>`);
-          const dominanceMeter = makeMeterElement("fa-bone", response[x].dominance);
+          let dogDominance = $("<p>Dominance Level</p>");
+          const dominanceMeter = makeMeterElement(
+            "fa-bone",
+            response[x].dominance
+          );
           dogDominance.append(dominanceMeter);
           // picture
           let profileImage = "https://bulma.io/images/placeholders/128x128.png";
@@ -177,7 +167,7 @@ $(document).ready(function() {
             </figure>
             <button class="button upload-button" data-upload-target-type="dog" data-upload-target-id="${response[x].id}">Update</button>`
           );
-          
+
           var lineBreak = $("<hr>");
           // main dog "row"
           var dogLevel = $("<div class='columns dogLevel'></div>");
@@ -186,9 +176,7 @@ $(document).ready(function() {
             "<div class='column is-narrow dogPicColumn center-column'></div>"
           );
           // right column
-          var dogInfoColumn = $(
-            "<div class='column dogInfoColumn'></div>"
-          );
+          var dogInfoColumn = $("<div class='column dogInfoColumn'></div>");
           $(dogInfoColumn).prepend(
             dogNameLevel,
             dogBio,
@@ -206,23 +194,19 @@ $(document).ready(function() {
           $("#dogContent").append(dogLevel);
         }
       });
-    })
+    });
 });
-
 
 $("#addDogBtn").click(function() {
   $("#newDogModal").toggleClass("is-active");
 });
 
-
-$(".modal-close").click((event) => {
+$(".modal-close").click(event => {
   $(".modal").removeClass("is-active");
 });
 
-
 $("#submitDogBtn").click(function(event) {
   event.preventDefault();
-
 
   var newDog = {
     name: $("#dogName")
@@ -249,7 +233,6 @@ $("#submitDogBtn").click(function(event) {
     UserId: userID
   };
 
-
   if (
     (newDog.name,
     newDog.gender,
@@ -270,7 +253,6 @@ $("#submitDogBtn").click(function(event) {
   }
 });
 
-
 $(document).on("click", "#dogDeleteBtn", function() {
   var toDelete = $(this).data("id");
   var apiURL = "/api/dog/";
@@ -283,14 +265,12 @@ $(document).on("click", "#dogDeleteBtn", function() {
   });
 });
 
-
 $("#nameBtn").click(function() {
   var newName = $("#nameInput")
     .val()
     .trim();
   var apiURL = "/api/user/name/";
   apiURL += userID;
-
 
   $.ajax({
     url: apiURL,
@@ -301,27 +281,22 @@ $("#nameBtn").click(function() {
   });
 });
 
-
-$(document).on("click", ".upload-button", (event) => {
+$(document).on("click", ".upload-button", event => {
   const button = $(event.currentTarget);
-
 
   uploadTarget = {
     type: button.data("upload-target-type"),
-    id: button.data("upload-target-id"),
+    id: button.data("upload-target-id")
   };
-
 
   $("#pick-file").val(null);
   $("#pick-file-name").text("");
   $("#upload-feedback").hide();
 
-
   $("#profile-image-modal").toggleClass("is-active");
 });
 
-
-$("#pick-file").change((event) => {
+$("#pick-file").change(event => {
   const input = event.currentTarget;
   if (input.files.length > 0) {
     $("#pick-file-name").text(input.files[0].name);
@@ -330,59 +305,53 @@ $("#pick-file").change((event) => {
   }
 });
 
-
-$("#picture-upload").submit((event) => {
+$("#picture-upload").submit(event => {
   event.preventDefault();
-
 
   if ($("#pick-file")[0].files.length === 0) {
     return;
   }
 
-
   $("#upload-feedback").hide();
   $("#upload-progress").show();
 
-
   let apiUrl;
   switch (uploadTarget.type) {
-    case "user":
-      apiUrl = `/api/user/${userID}/profile-image`;
-      break;
+  case "user":
+    apiUrl = `/api/user/${userID}/profile-image`;
+    break;
 
-
-    case "dog":
-      apiUrl = `/api/dog/${uploadTarget.id}/profile-image`;
-      break;
+  case "dog":
+    apiUrl = `/api/dog/${uploadTarget.id}/profile-image`;
+    break;
   }
 
-
   $.ajax({
-      url: apiUrl,
-      type: "PATCH",
-      data: new FormData(event.currentTarget),
-      cache: false,
-      contentType: false,
-      processData: false,
-      xhr: () => {
-        const myXhr = $.ajaxSettings.xhr();
-        if (myXhr.upload) {
-          myXhr.upload.addEventListener("progress", (event) => {
-              if (event.lengthComputable) {
-                $("#upload-progress").attr({
-                  value: event.loaded,
-                  max: event.total,
-                });
-              }
-            }, false);
-        }
-        return myXhr;
-      },
-    })
-    .then((responseJson) => {
+    url: apiUrl,
+    type: "PATCH",
+    data: new FormData(event.currentTarget),
+    cache: false,
+    contentType: false,
+    processData: false,
+    xhr: () => {
+      const myXhr = $.ajaxSettings.xhr();
+      if (myXhr.upload) {
+        myXhr.upload.addEventListener("progress", (event) => {
+          if (event.lengthComputable) {
+            $("#upload-progress").attr({
+              value: event.loaded,
+              max: event.total,
+            });
+          }
+        }, false);
+      }
+      return myXhr;      
+    }
+  })
+    .then(responseJson => {
       location.reload();
     })
-    .catch((error) => {
+    .catch(error => {
       console.error(error);
       $("#upload-feedback").show();
       $("#upload-progress").hide();

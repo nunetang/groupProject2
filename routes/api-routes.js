@@ -38,16 +38,18 @@ module.exports = function(app) {
   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", function(req, res) {
+  app.get("/api/user_data", (req, res) => {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.json(req.user);
+      res.json({
+        user: { id: req.user.id, name: req.user.name }
+      });
     }
-  });
+  }); //end of user_data
   app.post("/api/user", function(res, req) {
     db.User.create({
       name: req.body.name,
@@ -70,7 +72,7 @@ module.exports = function(app) {
       res.json(result);
     });
   });
-  app.get("/api/user/:id", function(res) {
+  app.get("/api/user/:id", function(req, res) {
     db.User.findAll({
       where: {
         id: req.params.id
@@ -79,6 +81,31 @@ module.exports = function(app) {
       res.json(result);
     });
   });
+
+  app.get("/api/user/user-events/:id", (req, res) => {
+    db.EventDayTimePark.findAll({
+      where: {
+        UserId: req.params.id
+      },
+      include: [
+        {
+          model: db.Park,
+          required: true,
+          attributes: ["name"]
+        }
+      ]
+    }).then(response => {
+      res.json(response);
+    });
+  });
+  app.get("/api/event/user-events/:id", (req, res) => {
+    db.EventDayTimePark.findAll({
+      attributes: [["date", "start"]],
+      group: ["date"]
+    }).then(response => {
+      res.json(response);
+    });
+  }); //end of currentevents
 
   // **** dog api routes *****
   app.get("/api/dog/:id", (req, res) => {
@@ -95,14 +122,11 @@ module.exports = function(app) {
       ]
     })
       .then(dogs => {
-        // console.log(dogs[0].User.dataValues.name);
-        // console.log(dogs);
         res.json(dogs);
       })
       .catch(function(err) {
         console.log(err);
         res.json(err);
-        // res.status(422).json(err.errors[0].message);
       });
   }); //end of get all dogs by user id
   app.post("/api/dog", (request, response) => {
@@ -127,7 +151,6 @@ module.exports = function(app) {
       ]
     };
 
-
     // This allows getting event dates for a month by specifying it like `/api/event/date?month=2019-03`.
     if (request.query.month) {
       const startDate = new Date(request.query.month + "-01T00:00:00");
@@ -137,7 +160,6 @@ module.exports = function(app) {
         1
       );
 
-
       options.where = {
         date: {
           [Op.gte]: startDate,
@@ -146,12 +168,10 @@ module.exports = function(app) {
       };
     }
 
-
     db.Event.findAll(options).then(events => {
       response.json(events);
     });
   }); // end of get event dates
-
 
   app.get("/api/event/current/:date", (req, res) => {
     db.EventDayTimePark.findAll({
@@ -169,5 +189,4 @@ module.exports = function(app) {
       res.json(response);
     });
   }); //end of current events on this date
-
 };
