@@ -32,7 +32,8 @@ module.exports = function(app) {
       .then(function(result) {
         // res.redirect(307, "/profile");
         res.json(result);
-      }).catch(function(err) {
+      })
+      .catch(function(err) {
         res.status(401).json(err);
       });
   });
