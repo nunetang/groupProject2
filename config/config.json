@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "passport_demo",
+    "database": "dogs5_out",
     "host": "localhost",
     "port": 3306,
     "dialect": "mysql"

@@ -38,16 +38,18 @@ module.exports = function(app) {
   });
 
   // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", function(req, res) {
+  app.get("/api/user_data", (req, res) => {
     if (!req.user) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.json(req.user);
+      res.json({
+        user: { id: req.user.id, name: req.user.name }
+      });
     }
-  });
+  }); //end of user_data
   app.post("/api/user", function(res, req) {
     db.User.create({
       name: req.body.name,
@@ -70,7 +72,7 @@ module.exports = function(app) {
       res.json(result);
     });
   });
-  app.get("/api/user/:id", function(res) {
+  app.get("/api/user/:id", function(req, res) {
     db.User.findAll({
       where: {
         id: req.params.id
@@ -79,4 +81,112 @@ module.exports = function(app) {
       res.json(result);
     });
   });
+
+  app.get("/api/user/user-events/:id", (req, res) => {
+    db.EventDayTimePark.findAll({
+      where: {
+        UserId: req.params.id
+      },
+      include: [
+        {
+          model: db.Park,
+          required: true,
+          attributes: ["name"]
+        }
+      ]
+    }).then(response => {
+      res.json(response);
+    });
+  });
+  app.get("/api/event/user-events/:id", (req, res) => {
+    db.EventDayTimePark.findAll({
+      attributes: [["date", "start"]],
+      group: ["date"]
+    }).then(response => {
+      res.json(response);
+    });
+  }); //end of currentevents
+
+  // **** dog api routes *****
+  app.get("/api/dog/:id", (req, res) => {
+    db.Dog.findAll({
+      where: {
+        UserID: req.params.id
+      },
+      include: [
+        {
+          model: db.User,
+          required: true,
+          attributes: ["name"]
+        }
+      ]
+    })
+      .then(dogs => {
+        res.json(dogs);
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.json(err);
+      });
+  }); //end of get all dogs by user id
+  app.post("/api/dog", (request, response) => {
+    db.Dog.create(request.body).then(dog => {
+      response.json(dog);
+    });
+  }); //end of create new dog
+  app.delete("/api/dog/:id", (request, response) => {
+    db.Dog.destroy({
+      where: {
+        id: request.params.id
+      }
+    }).then(dog => {
+      response.json(dog);
+    });
+  }); //end of dog delete
+
+  app.get("/api/event/date", (request, response) => {
+    const options = {
+      attributes: [
+        [db.sequelize.fn("DISTINCT", db.sequelize.col("date")), "date"]
+      ]
+    };
+
+    // This allows getting event dates for a month by specifying it like `/api/event/date?month=2019-03`.
+    if (request.query.month) {
+      const startDate = new Date(request.query.month + "-01T00:00:00");
+      const endDate = new Date(
+        startDate.getFullYear(),
+        startDate.getMonth() + 1,
+        1
+      );
+
+      options.where = {
+        date: {
+          [Op.gte]: startDate,
+          [Op.lt]: endDate
+        }
+      };
+    }
+
+    db.Event.findAll(options).then(events => {
+      response.json(events);
+    });
+  }); // end of get event dates
+
+  app.get("/api/event/current/:date", (req, res) => {
+    db.EventDayTimePark.findAll({
+      where: {
+        date: req.params.date
+      },
+      include: [
+        {
+          model: db.User,
+          required: true,
+          attributes: ["id"]
+        }
+      ]
+    }).then(response => {
+      res.json(response);
+    });
+  }); //end of current events on this date
 };

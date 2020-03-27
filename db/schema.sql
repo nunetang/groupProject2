@@ -1,13 +1,6 @@
-DROP DATABASE IF EXISTS passport_demo;
-CREATE DATABASE passport_demo;
+DROP DATABASE IF EXISTS dogs5_out;
+CREATE DATABASE dogs5_out;
 
-USE passport_demo;
+USE dogs5_out;
 
 -- Run seeds from seeds.sql
-
-select * FROM users;
-select * FROM dogs;
-select * FROM owners;
-
-
-
