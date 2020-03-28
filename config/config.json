@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "Parakeet-92",
     "database": "dogs5_out",
     "host": "localhost",
     "port": 3306,
