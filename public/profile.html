@@ -25,6 +25,7 @@
   <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
+        <img src="stylesheets/logotrans.png" id="logo" width="150" height="75">
 
           <div class="level is-mobile" style="margin: 0">
             <a class="navbar-item button is-rounded is-warning is-inverted is-outlined navButton" href="calendar.html"><i class="far fa-calendar-alt"></i></a>
@@ -52,7 +53,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-white" href="signup.html">
+              <a class="button is-white" id="logout" href="signup.html">
                 Logout
               </a>
             </div>
@@ -61,7 +62,40 @@
       </div>
     </nav>
 
+    <div class="modal" id="searchModal">
+      <div class="modal-background" id="search-modal-background"></div>
+      <div class="modal-content">
+        <div class="modal-card">
+          <header class="modal-card-head">
+          </header>
+          <section class="modal-card-body" id="searchModalBody">
+            <div class="content">
+              <form id="searchform">
+                <div class="field is-grouped">
+                  <p>
+                    <input
+                      id="searchinput"
+                      name="search"
+                      class="input"
+                      type="text"
+                      placeholder="Search for dogs and owners"
+                    />
+                  </p>
+                  <p class="control">
+                    <button id="searchbuttonmodal" type="submit" class="button is-info">
+                      Find a meetup!
+                    </button>
+                  </p>
+                </div>
+              </form>
+            </div>
 
+          </section>
+          <footer class="modal-card-foot">
+          </footer>
+        </div>
+      </div>
+    </div>
 
     <div class="section">
   <div class="container">
