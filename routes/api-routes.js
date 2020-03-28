@@ -1,6 +1,16 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var aws = require("aws-sdk");
+const multer = require("multer");
+const path = require("path");
+const upload = multer({});
+
+const Op = db.sequelize.Op;
+const S3_BUCKET = process.env.S3_BUCKET;
+aws.config.region = "us-west-2";
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -254,4 +264,87 @@ module.exports = function(app) {
       console.log(destroyed);
     });
   });
+
+  //uploading image for user and for dog(s)
+  app.patch(
+    "/api/dog/:id/profile-image",
+    upload.single("file"),
+    (request, response) => {
+      const fileName = generateFileName(request.file.originalname);
+
+      const s3 = new aws.S3();
+      const s3Params = {
+        Bucket: S3_BUCKET,
+        Key: fileName,
+        ContentType: request.file.mimetype,
+        ACL: "public-read",
+        Body: request.file.buffer
+      };
+
+      s3.putObject(s3Params, (error, data) => {
+        if (error) {
+          console.error(error);
+          return response.status(500).end();
+        }
+
+        const url = `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`;
+
+        db.Dog.update(
+          {
+            profileImage: url
+          },
+          {
+            where: {
+              id: request.params.id
+            }
+          }
+        )
+          .then(affectedRows => {
+            if (affectedRows[0] !== 1) {
+              return response.status(500).end();
+            }
+
+            const returnData = {
+              profileImage: url
+            };
+
+            response.write(returnData);
+            response.end();
+          })
+          .catch(reason => {
+            console.error(reason);
+            response.status(500).end();
+          });
+      });
+    }
+  ); //end of update dog profile image
+
+  //update user's public name
+  app.put("/api/user/name/:id", (req, res) => {
+    db.User.update(
+      {
+        name: req.body.name
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      }
+    ).then(name => {
+      res.json(name);
+    });
+  });
 };
+//functions
+function generateFileName(originalName) {
+  const alphabet =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+  let id = "";
+  for (let i = 0; i < 21; i++) {
+    const index = Math.floor(64 * Math.random());
+    id += alphabet[index];
+  }
+
+  return id + path.extname(originalName);
+}
