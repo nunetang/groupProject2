@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Parakeet-92",
+    "password": "Ciudaiuda!3",
     "database": "dogs5_out",
     "host": "localhost",
     "port": 3306,
@@ -16,9 +16,10 @@
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "Ciudaiuda!3",
     "database": "passport_demo",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "use_env_variable": "JAWSDB_URL"
   }
 }
