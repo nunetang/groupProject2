@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Good Day</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"/>
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Carrois+Gothic" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title" charset="utf-8"/>
+    <link rel="stylesheet" href="stylesheets/bulma-tooltip.min.css" media="screen" title="no title" charset="utf-8"/>
+  </head>
+
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        
+          <div class="level is-mobile" style="margin: 0">
+            <a class="navbar-item button is-rounded is-warning is-inverted is-outlined navButton" href="calendar.html"><i class="far fa-calendar-alt"></i></a>
+            <a class="navbar-item button is-rounded is-warning is-inverted is-outlined navButton" href="profile.html"><i class="fas fa-user-circle"></i></a>
+           
+          </div>
+
+
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-white" href="signup.html">
+                Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="modal" id="searchModal">
+      <div class="modal-background" id="search-modal-background"></div>
+      <div class="modal-content">
+        <div class="modal-card">
+          <header class="modal-card-head">
+          </header>
+          <section class="modal-card-body" id="searchModalBody">
+            <div class="content">
+              <form id="searchform">
+                <div class="field is-grouped">
+                  <p>
+                    <input
+                      id="searchinput"
+                      name="search"
+                      class="input"
+                      type="text"
+                      placeholder="Search for dogs and owners"
+                    />
+                  </p>
+                  <p class="control">
+                    <button id="searchbuttonmodal" type="submit" class="button is-info">
+                      Find a meetup!
+                    </button>
+                  </p>
+                </div>
+              </form>
+            </div>
+
+          </section>
+          <footer class="modal-card-foot">
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+  <div class="container">
+    <h1 class="title day-title">Good Day!</h1>
+
+    <div class="columns is-3">
+      <div class="column content">
+        <div class="card">
+          <div class="card-content">
+            <h2 class="title is-4">Parks</h2>
+
+            <ul class="parks" id="park-list">
+                <li>
+                  <span class="park-name">Seattle Dog Park</span>
+
+
+
+                  <ul class="time-list" data-park-id="5" data-park-name="Seattle Dog Park">
+                      <li class="time Morning">
+                        <a class="time-link" href="#" data-time-name="Morning" >
+                          <span class="time-name">Morning</span>
+                          <span class="time-range">(7am - 12pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Afternoon">
+                        <a class="time-link" href="#" data-time-name="Afternoon" >
+                          <span class="time-name">Afternoon</span>
+                          <span class="time-range">(12pm - 6pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Evening">
+                        <a class="time-link" href="#" data-time-name="Evening" >
+                          <span class="time-name">Evening</span>
+                          <span class="time-range">(6pm - 10pm)</span>
+                        </a>
+                      </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="park-name">Sammamish Dog Park</span>
+
+
+
+                  <ul class="time-list" data-park-id="4" data-park-name="Sammamish Dog Park">
+                      <li class="time Morning">
+                        <a class="time-link" href="#" data-time-name="Morning" >
+                          <span class="time-name">Morning</span>
+                          <span class="time-range">(7am - 12pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Afternoon">
+                        <a class="time-link" href="#" data-time-name="Afternoon" >
+                          <span class="time-name">Afternoon</span>
+                          <span class="time-range">(12pm - 6pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Evening">
+                        <a class="time-link" href="#" data-time-name="Evening" >
+                          <span class="time-name">Evening</span>
+                          <span class="time-range">(6pm - 10pm)</span>
+                        </a>
+                      </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="park-name">Northside Dog Park</span>
+
+
+
+                  <ul class="time-list" data-park-id="2" data-park-name="Northside Dog Park">
+                      <li class="time Morning">
+                        <a class="time-link" href="#" data-time-name="Morning" >
+                          <span class="time-name">Morning</span>
+                          <span class="time-range">(7am - 12pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Afternoon">
+                        <a class="time-link" href="#" data-time-name="Afternoon" >
+                          <span class="time-name">Afternoon</span>
+                          <span class="time-range">(12pm - 6pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Evening">
+                        <a class="time-link" href="#" data-time-name="Evening" >
+                          <span class="time-name">Evening</span>
+                          <span class="time-range">(6pm - 10pm)</span>
+                        </a>
+                      </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="park-name">Kirkland Dog Park</span>
+
+
+
+                  <ul class="time-list" data-park-id="3" data-park-name="Kirkland Dog Park">
+                      <li class="time Morning">
+                        <a class="time-link" href="#" data-time-name="Morning" >
+                          <span class="time-name">Morning</span>
+                          <span class="time-range">(7am - 12pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Afternoon">
+                        <a class="time-link" href="#" data-time-name="Afternoon" >
+                          <span class="time-name">Afternoon</span>
+                          <span class="time-range">(12pm - 6pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Evening">
+                        <a class="time-link" href="#" data-time-name="Evening" >
+                          <span class="time-name">Evening</span>
+                          <span class="time-range">(6pm - 10pm)</span>
+                        </a>
+                      </li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="park-name">Eastside Dog Park</span>
+
+
+
+                  <ul class="time-list" data-park-id="1" data-park-name="Eastside Dog Park">
+                      <li class="time Morning">
+                        <a class="time-link" href="#" data-time-name="Morning" >
+                          <span class="time-name">Morning</span>
+                          <span class="time-range">(7am - 12pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Afternoon">
+                        <a class="time-link" href="#" data-time-name="Afternoon" >
+                          <span class="time-name">Afternoon</span>
+                          <span class="time-range">(12pm - 6pm)</span>
+                        </a>
+                      </li>
+                      <li class="time Evening">
+                        <a class="time-link" href="#" data-time-name="Evening" >
+                          <span class="time-name">Evening</span>
+                          <span class="time-range">(6pm - 10pm)</span>
+                        </a>
+                      </li>
+                  </ul>
+                </li>
+            </ul>  
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const parks = [{"id":5,"name":"Seattle Dog Park","createdAt":"2020-03-15T02:14:19.000Z","updatedAt":"2020-03-15T02:14:19.000Z","Events":[]},{"id":4,"name":"Sammamish Dog Park","createdAt":"2020-03-15T02:14:19.000Z","updatedAt":"2020-03-15T02:14:19.000Z","Events":[]},{"id":2,"name":"Northside Dog Park","createdAt":"2020-03-15T02:14:19.000Z","updatedAt":"2020-03-15T02:14:19.000Z","Events":[]},{"id":3,"name":"Kirkland Dog Park","createdAt":"2020-03-15T02:14:19.000Z","updatedAt":"2020-03-15T02:14:19.000Z","Events":[]},{"id":1,"name":"Eastside Dog Park","createdAt":"2020-03-15T02:14:19.000Z","updatedAt":"2020-03-15T02:14:19.000Z","Events":[]}];
+</script>
+<script src="js/day.js"></script>
+
+<script src="js/main.js"></script>
+    
+  </body>
+</html>
