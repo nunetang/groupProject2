@@ -56,13 +56,18 @@ body {
  margin-bottom: 15px; 
 }
 
+#logo2 {
+  position: fixed;
+  left:5px; 
+}
+
 
 .navButton {
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
-  color: orange !important;
-  position: static;
   
+  color: orange !important;
+  position: relative;
+  left:10px;
+  bottom: 5px;
 }
 
 #logout {
