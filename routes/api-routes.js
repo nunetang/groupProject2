@@ -37,6 +37,7 @@ module.exports = function(app) {
         res.redirect(307, "/api/login");
       })
       .catch(function(err) {
+        console.log(err);
         res.status(401).json(err);
       });
   });
@@ -66,12 +67,21 @@ module.exports = function(app) {
       address: req.body.address
     }).then(function(result) {
       res.json(result);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
+
   });
   app.get("/api/user", function(res) {
     db.User.findAll({}).then(function(result) {
       res.json(result);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   });
   app.delete("/api/user/:id", function(res) {
     db.User.destroy({
@@ -80,7 +90,11 @@ module.exports = function(app) {
       }
     }).then(function(result) {
       res.json(result);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   });
   app.get("/api/user/:id", function(req, res) {
     db.User.findOne({
@@ -89,7 +103,11 @@ module.exports = function(app) {
       }
     }).then(function(result) {
       res.json(result);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   });
 
   app.get("/api/user/user-events/:id", (req, res) => {
@@ -106,7 +124,11 @@ module.exports = function(app) {
       ]
     }).then(response => {
       res.json(response);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   });
   app.get("/api/event/user-events/:id", (req, res) => {
     db.EventDayTimePark.findAll({
@@ -114,7 +136,11 @@ module.exports = function(app) {
       group: ["date"]
     }).then(response => {
       res.json(response);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   }); //end of currentevents
 
   // **** dog api routes *****
@@ -136,7 +162,7 @@ module.exports = function(app) {
       })
       .catch(function(err) {
         console.log(err);
-        res.json(err);
+        res.status(401).json(err);
       });
   }); //end of get all dogs by user id
   app.post("/api/dog", (request, response) => {
@@ -151,7 +177,11 @@ module.exports = function(app) {
       }
     }).then(dog => {
       response.json(dog);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        response.status(401).json(err);
+      });
   }); //end of dog delete
 
   //      Event API Routes
@@ -182,7 +212,11 @@ module.exports = function(app) {
 
     db.Event.findAll(options).then(events => {
       response.json(events);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        response.status(401).json(err);
+      });
   }); // end of get event dates
 
   app.get("/api/event/current/:date", (req, res) => {
@@ -199,7 +233,11 @@ module.exports = function(app) {
       ]
     }).then(response => {
       res.json(response);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   }); //end of current events on this date
 
   app.get("/api/events", (req, res) => {
@@ -208,7 +246,11 @@ module.exports = function(app) {
       group: ["date"]
     }).then(response => {
       res.json(response);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   }); //end of currentevents
 
   app.get("/api/user/user-events/:id", (req, res) => {
@@ -225,7 +267,11 @@ module.exports = function(app) {
       ]
     }).then(response => {
       res.json(response);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   });
   app.get("/api/event/user-events/:id", (req, res) => {
     db.EventDayTimePark.findAll({
@@ -246,7 +292,11 @@ module.exports = function(app) {
     }).then(attendee => {
       console.log(attendee.dataValues);
       res.json(attendee);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
     //end of dbEventDayTimePark create
   });
 
@@ -262,7 +312,11 @@ module.exports = function(app) {
     }).then(destroyed => {
       res.json(destroyed);
       console.log(destroyed);
-    });
+    })
+      .catch(function(err) {
+        console.log(err);
+        res.status(401).json(err);
+      });
   });
 
   //uploading image for user and for dog(s)
