@@ -18,7 +18,7 @@
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "2.4.3",
     "bulma": "^0.8.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-handlebars": "^4.0.0",
     "express-session": "^1.16.1",
     "express-sessions": "^1.0.6",
